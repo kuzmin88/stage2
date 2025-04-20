@@ -6,6 +6,9 @@ RUN apk add --no-cache ffmpeg curl \
     && chown -R node:node /home/node/.n8n
 
 USER node
+WORKDIR /home/node/.n8n/custom     # ⬅ ключевой момент!
 
-RUN npm init -y --prefix /home/node/.n8n/custom \
- && npm install --production --prefix /home/node/.n8n/custom n8n-nodes-icloud
+RUN npm init -y \
+ && npm install --production n8n-nodes-icloud
+
+WORKDIR /home/node
